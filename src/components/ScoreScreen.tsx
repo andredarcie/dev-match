@@ -6,17 +6,26 @@ interface ScoreScreenProps {
   total: number;
   pairs: Pair[];
   onRestart: () => void;
+  nodeTitle?: string;
+  passed?: boolean;
 }
 
 function getMessage(percentage: number): string {
-  if (percentage === 100) return "Perfeito! Você é um arquiteto nato! 🏆";
-  if (percentage >= 80) return "Excelente! Você manja muito! 🔥";
-  if (percentage >= 60) return "Bom trabalho! Está no caminho certo! 💪";
-  if (percentage >= 40) return "Pode melhorar! Continue estudando! 📚";
-  return "Hora de revisar os fundamentos! 🎯";
+  if (percentage === 100) return "Perfeito! Voce e um arquiteto nato!";
+  if (percentage >= 80) return "Excelente! Voce manja muito!";
+  if (percentage >= 60) return "Bom trabalho! Esta no caminho certo!";
+  if (percentage >= 40) return "Pode melhorar! Continue estudando!";
+  return "Hora de revisar os fundamentos!";
 }
 
-export function ScoreScreen({ score, total, pairs, onRestart }: ScoreScreenProps) {
+export function ScoreScreen({
+  score,
+  total,
+  pairs,
+  onRestart,
+  nodeTitle,
+  passed,
+}: ScoreScreenProps) {
   const percentage = Math.round((score / total) * 100);
 
   return (
@@ -26,6 +35,8 @@ export function ScoreScreen({ score, total, pairs, onRestart }: ScoreScreenProps
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
     >
+      {nodeTitle && <p className="node-phase">Fase: {nodeTitle}</p>}
+
       <h2 className="score-title">Resultado</h2>
 
       <motion.div
@@ -38,6 +49,17 @@ export function ScoreScreen({ score, total, pairs, onRestart }: ScoreScreenProps
         <span className="score-of">de {total}</span>
         <span className="score-percent">{percentage}%</span>
       </motion.div>
+
+      {passed !== undefined && (
+        <motion.div
+          className={passed ? "passed-banner" : "failed-banner"}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.4 }}
+        >
+          {passed ? "Fase completa!" : "Precisa de 70% para passar"}
+        </motion.div>
+      )}
 
       <p className="score-message">{getMessage(percentage)}</p>
 
@@ -57,7 +79,7 @@ export function ScoreScreen({ score, total, pairs, onRestart }: ScoreScreenProps
               <span>{pair.b}</span>
             </div>
             <span className={`pair-badge ${pair.match ? "match" : "no-match"}`}>
-              {pair.match ? "Combinam" : "Não combinam"}
+              {pair.match ? "Combinam" : "Nao combinam"}
             </span>
           </motion.div>
         ))}
@@ -69,7 +91,7 @@ export function ScoreScreen({ score, total, pairs, onRestart }: ScoreScreenProps
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
-        Jogar Novamente
+        Voltar ao Mapa
       </motion.button>
     </motion.div>
   );
