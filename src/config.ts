@@ -6,5 +6,5 @@ export const config = {
   passThreshold: 0.7,
 
   /** localStorage key used to persist progress */
-  storageKey: "devmatch-progress",
+  storageKey: "archpull-progress",
 };

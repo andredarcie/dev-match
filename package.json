@@ -1,16 +1,23 @@
 {
-  "name": "temp-scaffold",
+  "name": "archpull",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:vercel": "vercel dev",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^1.1.0",
+    "cookie": "^1.1.1",
+    "drizzle-orm": "^0.45.2",
     "framer-motion": "^12.33.0",
+    "jose": "^6.2.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },

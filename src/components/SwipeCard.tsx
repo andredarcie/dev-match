@@ -24,11 +24,6 @@ export function SwipeCard({ cards, onFinish }: SwipeCardProps) {
   const pairTotal = cards.filter(isPair).length;
   const pairsDone = cards.slice(0, currentIndex).filter(isPair).length;
 
-  // Reset flip state when the card changes
-  useEffect(() => {
-    setIsFlipped(false);
-  }, [currentIndex]);
-
   const advance = useCallback(
     (nextScore: number, nextWrong: Pair[]) => {
       setShowCard(false);
@@ -36,6 +31,7 @@ export function SwipeCard({ cards, onFinish }: SwipeCardProps) {
         if (currentIndex + 1 >= cards.length) {
           onFinish(nextScore, nextWrong);
         } else {
+          setIsFlipped(false);
           setCurrentIndex((i) => i + 1);
           setFeedback(null);
           setExitDirection(0);

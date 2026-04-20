@@ -26,7 +26,9 @@ export function ScoreScreen({
   nodeTitle,
   passed,
 }: ScoreScreenProps) {
-  const percentage = Math.round((score / total) * 100);
+  const percentage = total > 0 ? Math.round((score / total) * 100) : 0;
+  const message =
+    total > 0 ? getMessage(percentage) : "Nenhuma pergunta avaliavel nesta rodada.";
 
   return (
     <motion.div
@@ -35,33 +37,35 @@ export function ScoreScreen({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
     >
-      {nodeTitle && <p className="node-phase">Fase: {nodeTitle}</p>}
+      <div className="score-summary">
+        {nodeTitle && <p className="node-phase">Fase: {nodeTitle}</p>}
 
-      <h2 className="score-title">Resultado</h2>
+        <h2 className="score-title">Resultado</h2>
 
-      <motion.div
-        className="score-circle"
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ type: "spring", delay: 0.2 }}
-      >
-        <span className="score-number">{score}</span>
-        <span className="score-of">de {total}</span>
-        <span className="score-percent">{percentage}%</span>
-      </motion.div>
-
-      {passed !== undefined && (
         <motion.div
-          className={passed ? "passed-banner" : "failed-banner"}
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.4 }}
+          className="score-circle"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ type: "spring", delay: 0.2 }}
         >
-          {passed ? "Fase completa!" : "Precisa de 70% para passar"}
+          <span className="score-number">{score}</span>
+          <span className="score-of">de {total}</span>
+          <span className="score-percent">{percentage}%</span>
         </motion.div>
-      )}
 
-      <p className="score-message">{getMessage(percentage)}</p>
+        {passed !== undefined && (
+          <motion.div
+            className={passed ? "passed-banner" : "failed-banner"}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.4 }}
+          >
+            {passed ? "Fase completa!" : "Precisa de 70% para passar"}
+          </motion.div>
+        )}
+
+        <p className="score-message">{message}</p>
+      </div>
 
       {wrongPairs.length > 0 && (
         <div className="pairs-review">
@@ -87,14 +91,16 @@ export function ScoreScreen({
         </div>
       )}
 
-      <motion.button
-        className="btn-play"
-        onClick={onRestart}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-      >
-        Voltar ao Mapa
-      </motion.button>
+      <div className="score-actions">
+        <motion.button
+          className="btn-play"
+          onClick={onRestart}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          Voltar ao Mapa
+        </motion.button>
+      </div>
     </motion.div>
   );
 }
