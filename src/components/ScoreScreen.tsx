@@ -11,9 +11,9 @@ interface ScoreScreenProps {
 }
 
 function getMessage(percentage: number): string {
-  if (percentage === 100) return "Perfeito! Voce e um arquiteto nato!";
-  if (percentage >= 80) return "Excelente! Voce manja muito!";
-  if (percentage >= 60) return "Bom trabalho! Esta no caminho certo!";
+  if (percentage === 100) return "Perfeito! Você é um arquiteto nato!";
+  if (percentage >= 80) return "Excelente! Você manja muito!";
+  if (percentage >= 60) return "Bom trabalho! Está no caminho certo!";
   if (percentage >= 40) return "Pode melhorar! Continue estudando!";
   return "Hora de revisar os fundamentos!";
 }
@@ -28,7 +28,7 @@ export function ScoreScreen({
 }: ScoreScreenProps) {
   const percentage = total > 0 ? Math.round((score / total) * 100) : 0;
   const message =
-    total > 0 ? getMessage(percentage) : "Nenhuma pergunta avaliavel nesta rodada.";
+    total > 0 ? getMessage(percentage) : "Nenhuma pergunta avaliável nesta rodada.";
 
   return (
     <motion.div
@@ -84,7 +84,7 @@ export function ScoreScreen({
                 <span>{pair.b}</span>
               </div>
               <span className="pair-badge no-match">
-                {pair.match ? "Combinam" : "Nao combinam"}
+                {pair.match ? "Combinam" : "Não combinam"}
               </span>
             </motion.div>
           ))}

@@ -130,13 +130,13 @@ export function SwipeCard({ cards, onFinish }: SwipeCardProps) {
                   className="swipe-indicator nope"
                   style={{ opacity: offsetX < 0 ? swipeIndicatorOpacity : 0 }}
                 >
-                  ✗
+                  Não
                 </div>
                 <div
                   className="swipe-indicator like"
                   style={{ opacity: offsetX > 0 ? swipeIndicatorOpacity : 0 }}
                 >
-                  ✓
+                  Sim
                 </div>
 
                 <div className="card-content">
@@ -153,7 +153,7 @@ export function SwipeCard({ cards, onFinish }: SwipeCardProps) {
 
                 {feedback && (
                   <div className={`feedback-overlay ${feedback}`}>
-                    {feedback === "correct" ? "✓" : "✗"}
+                    {feedback === "correct" ? "Sim" : "Não"}
                   </div>
                 )}
               </motion.div>
@@ -206,7 +206,7 @@ export function SwipeCard({ cards, onFinish }: SwipeCardProps) {
             whileTap={{ scale: 0.9 }}
             disabled={!!feedback}
           >
-            ✗
+            Não
           </motion.button>
           <motion.button
             className="btn-action btn-like"
@@ -215,7 +215,7 @@ export function SwipeCard({ cards, onFinish }: SwipeCardProps) {
             whileTap={{ scale: 0.9 }}
             disabled={!!feedback}
           >
-            ✓
+            Sim
           </motion.button>
         </div>
       )}
